@@ -4,7 +4,7 @@
 Name:           polkit-kde
 Summary:        PolicyKit integration for KDE Desktop
 Version:        0.99.1
-Release:        4.%{snap}%{?dist}
+Release:        1.%{snap}%{?dist}
 
 License:        GPLv2+
 URL:            https://projects.kde.org/projects/extragear/base/polkit-kde-agent-1 
@@ -14,10 +14,6 @@ Source0:        polkit-kde-agent-1-0.99.1-%{snap}.tar.bz2
 %else
 Source0:        ftp://ftp.kde.org/pub/kde/stable/apps/KDE4.x/admin/polkit-kde-agent-1-0.99.0.tar.bz2
 %endif
-
-# Stores window IDs only for actual actions on setWIdForAction DBus call
-# 1017692
-Patch1: polkit-kde-agent-1-0.99.1-dbus-spam-leak.patch
 
 ## upstream patches
 
@@ -40,7 +36,6 @@ Provides Policy Kit Authentication Agent that nicely fits to KDE.
 %prep
 %setup -q -n polkit-kde-agent-1-%{version}
 
-%patch1 -p1 -b .dbusspam
 
 %build
 mkdir -p %{_target_platform}
@@ -65,16 +60,6 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
-* Wed Jan 29 2014 Martin Briza <mbriza@redhat.com> - 0.99.1-4.20130311git
-- Don't store wIDs for nonexistent actions
-- Resolves: #1017692
-
-* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.99.1-3.20130311git
-- Mass rebuild 2014-01-24
-
-* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.99.1-2.20130311git
-- Mass rebuild 2013-12-27
-
 * Mon Mar 11 2013 Rex Dieter <rdieter@fedoraproject.org> - 0.99.1-1.20130311git
 - 0.99.1 git snapshot
 - Provides: polkit-kde-agent-1
